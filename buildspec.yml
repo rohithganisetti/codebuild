@@ -9,7 +9,7 @@ env:
 phases:
   pre_build:
     commands:
-      - echo "Rohith from pre_build section"
+      - echo "Rohith from pre_build"
       - echo "Pre-build phase started"
       - pwd
       - ls -la
@@ -18,14 +18,14 @@ phases:
 
   build:
     commands:
-      - echo "Rohith from build section"
+      - echo "Rohith from build"
       - echo "Build phase started"
       - docker build -t $IMAGE_NAME .
       - docker tag $IMAGE_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:latest
 
   post_build:
     commands:
-      - echo "Rohith from post_build section"
+      - echo "Rohith from post_build"
       - echo "Post-build phase started"
       - aws ecr describe-repositories --repository-names $IMAGE_NAME || aws ecr create-repository --repository-name $IMAGE_NAME
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:latest
