@@ -2,9 +2,9 @@ version: 0.2
 
 env:
   variables:
-    AWS_ACCOUNT_ID: "123456789012"   # Replace with your account ID
-    AWS_DEFAULT_REGION: "us-east-1"  # Replace with your region
-    IMAGE_NAME: "my-app"
+    AWS_ACCOUNT_ID: "417744795688"   # Replace with your account ID
+    AWS_DEFAULT_REGION: "eu-north-1"  # Replace with your region
+    IMAGE_NAME: "my-latest-app"
 
 phases:
   pre_build:
