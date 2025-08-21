@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_ACCOUNT_ID: "123456789012"   # Replace with your account ID
+    AWS_DEFAULT_REGION: "us-east-1"  # Replace with your region
+    IMAGE_NAME: "my-app"
+
+phases:
+  pre_build:
+    commands:
+      - echo "Pre-build phase started"
+      - pwd
+      - ls -la
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo "Build phase started"
+      - docker build -t $IMAGE_NAME .
+      - docker tag $IMAGE_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:latest
+
+  post_build:
+    commands:
+      - echo "Post-build phase started"
+      - aws ecr describe-repositories --repository-names $IMAGE_NAME || aws ecr create-repository --repository-name $IMAGE_NAME
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_NAME:latest
+      - echo "Docker image pushed to ECR successfully"
