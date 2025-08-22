@@ -1,11 +1,20 @@
-# Use a base image
-FROM openjdk:17-jdk-slim
+# Use Node.js base image
+FROM node:20
 
 # Set working directory
 WORKDIR /app
 
-# Copy source code (dummy example)
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy application code
 COPY . .
 
-# Default command
-CMD ["echo", "Hello from Docker!"]
+# Expose port
+EXPOSE 3000
+
+# Start application
+CMD ["node", "app.js"]
