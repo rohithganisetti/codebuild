@@ -28,7 +28,7 @@ phases:
 
   post_build:
     commands:
-      - echo "Pushing Docker image to ECR.."
+      - echo "Pushing Docker image to ECR."
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPO_NAME:$IMAGE_TAG
       - echo "Writing imagedefinitions.json for ECS deployment..."
       - printf '[{"name":"my-app","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPO_NAME:$IMAGE_TAG > imagedefinitions.json
