@@ -9,7 +9,7 @@ env:
 phases:
   pre_build:
     commands:
-      - echo "Rohith from pre_build section"
+      - echo "Rohith from pre_build "
       - echo "Pre-build phase started"
       - pwd
       - ls -la
